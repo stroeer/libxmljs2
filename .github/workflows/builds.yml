@@ -31,6 +31,10 @@ jobs:
         with:
           name: ${{ matrix.os }}-${{ matrix.node }}-binary
           path: 'build/**/*.tar.gz'
+      - name: Publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
   alpine:
     runs-on: ubuntu-18.04
     strategy:

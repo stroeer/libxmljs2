@@ -1,5 +1,5 @@
 {
-  "name": "libxmljs2",
+  "name": "@stroeer/libxmljs2",
   "author": "marudor",
   "contributors": [
     "Jeff Smick",
@@ -16,7 +16,7 @@
   "version": "0.26.7",
   "scripts": {
     "build": "node-pre-gyp install --build-from-source",
-    "install": "node-pre-gyp install --fallback-to-build --loglevel http",
+    "install": "node-pre-gyp install --build-from-source",
     "test": "node --expose_gc ./node_modules/jest/bin/jest.js",
     "lint": "eslint index.js test",
     "tsd": "tsd",
