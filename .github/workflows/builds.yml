@@ -4,8 +4,7 @@ on: push
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
