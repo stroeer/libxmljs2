@@ -31,7 +31,7 @@ jobs:
         with:
           name: ${{ matrix.os }}-${{ matrix.node }}-binary
           path: 'build/**/*.tar.gz'
-      - name: Publish
+      - name: Publish-to-registry
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
