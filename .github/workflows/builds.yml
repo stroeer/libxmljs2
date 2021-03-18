@@ -11,9 +11,10 @@ jobs:
         node: [10, 12, 14, 15]
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@master
+      - uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 13
+          registry-url: https://npm.pkg.github.com/
       - run: yarn --frozen-lockfile
         env:
           npm_config_build_from_source: true
@@ -29,46 +30,3 @@ jobs:
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-  alpine:
-    runs-on: ubuntu-18.04
-    strategy:
-      matrix:
-        node: [10, 12, 14, 15]
-      fail-fast: true
-    container:
-      image: node:${{ matrix.node }}-alpine
-    steps:
-      - uses: actions/checkout@v2
-      - run: |
-          apk add --no-cache python3 make g++
-      - run: yarn --frozen-lockfile
-        env:
-          npm_config_build_from_source: true
-      - run: yarn lint
-      - run: yarn tsd
-      - run: yarn test
-      - run: yarn package
-      - uses: actions/upload-artifact@v2
-        with:
-          name: alpine-${{ matrix.node }}-binary
-          path: 'build/**/*.tar.gz'
-  deploy:
-    runs-on: ubuntu-18.04
-    needs: [alpine, build]
-    if: startsWith(github.ref, 'refs/tags/v')
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@master
-        with:
-          node-version: 14
-      - uses: actions/download-artifact@v2
-        with:
-          path: build
-      - id: vars
-        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
-      - uses: eine/tip@master
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ steps.vars.outputs.tag }}
-          files: |
-            ./build/*/stage/marudor/libxmljs2/releases/download/*/*
