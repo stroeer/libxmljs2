@@ -22,10 +22,6 @@ jobs:
       - run: yarn tsd
       - run: yarn test
       - run: yarn package
-      - uses: actions/upload-artifact@v2
-        with:
-          name: ${{ matrix.os }}-${{ matrix.node }}-binary
-          path: 'build/**/*.tar.gz'
       - name: Publish-to-registry
         run: npm publish
         env:
