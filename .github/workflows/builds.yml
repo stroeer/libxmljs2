@@ -6,22 +6,12 @@ jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
-      matrix:
-        os: [windows-2019, macos-10.15, ubuntu-18.04]
-        node: [10, 12, 14, 15]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 13
           registry-url: https://npm.pkg.github.com/
-      - run: yarn --frozen-lockfile
-        env:
-          npm_config_build_from_source: true
-      - run: yarn lint
-      - run: yarn tsd
-      - run: yarn test
-      - run: yarn package
       - name: Publish-to-registry
         run: npm publish
         env:
