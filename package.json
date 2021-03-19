@@ -10,10 +10,10 @@
     "module_path": "./build/Release/",
     "host": "https://github.com",
     "remote_path": "./marudor/libxmljs2/releases/download/v0.26.3/",
-    "package_name": "node-v83-linux-x64-glibc.tar.gz"
+    "package_name": "node-v72-linux-x64-glibc.tar.gz"
   },
   "description": "libxml bindings for v8 javascript engine",
-  "version": "0.26.10",
+  "version": "0.26.11",
   "scripts": {
     "build": "node-pre-gyp install --build-from-source",
     "install": "node-pre-gyp install --fallback-to-build --loglevel http",
